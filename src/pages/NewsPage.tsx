@@ -1,8 +1,5 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import SectionContainer from '../components/shared/SectionContainer';
-
-// Lazy load the MyComponent
-const MyComponent = React.lazy(() => import('./MyComponent'));
 
 const NewsPage = () => {
   const newsItems = [
@@ -38,27 +35,25 @@ const NewsPage = () => {
 
   return (
     <SectionContainer>
-      <Suspense fallback={<div>Loading...</div>}>
-        <h2 className="text-3xl font-bold text-[#041e42] mb-8">Zetech Muslim Union News & Events</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {newsItems.map((news) => (
-            <div key={news.id} className="border rounded-lg overflow-hidden shadow-lg">
-              {/* Increased image height and margin adjustments */}
-              <img
-                src={news.image}
-                alt={news.title}
-                className="w-full h-80 object-cover mb-8"
-              />
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[#041e42] mb-3">{news.title}</h3>
-                <p className="text-sm text-gray-500 mb-5">{news.date}</p>
-                <p className="text-gray-700">{news.description}</p>
-              </div>
+      <h2 className="text-3xl font-bold text-[#041e42] mb-8">Zetech Muslim Union News & Events</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+        {newsItems.map((news) => (
+          <div key={news.id} className="border rounded-lg overflow-hidden shadow-lg">
+            {/* Lazy load images using the loading attribute */}
+            <img
+              src={news.image}
+              alt={news.title}
+              className="w-full h-80 object-cover mb-8"
+              loading="lazy"
+            />
+            <div className="p-6">
+              <h3 className="text-xl font-semibold text-[#041e42] mb-3">{news.title}</h3>
+              <p className="text-sm text-gray-500 mb-5">{news.date}</p>
+              <p className="text-gray-700">{news.description}</p>
             </div>
-          ))}
-        </div>
-        <MyComponent />
-      </Suspense>
+          </div>
+        ))}
+      </div>
     </SectionContainer>
   );
 };

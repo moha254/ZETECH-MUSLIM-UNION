@@ -40,6 +40,7 @@ const FeaturedEvents = () => {
                 className="h-48 w-full object-cover"
                 src={event.image}
                 alt={event.title}
+                loading="lazy" // Lazy loading for images
               />
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-[#041e42] mb-4">{event.title}</h3>
